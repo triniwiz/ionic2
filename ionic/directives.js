@@ -6,7 +6,7 @@ import {
   // Form elements
   Switch, Checkbox, Label, Item, Input,Segment, SegmentButton
 
-} from 'ionic/ionic';
+} from 'ionic/components';
 
 var IONIC_DIRECTIVES = [
   Button, List, Content,

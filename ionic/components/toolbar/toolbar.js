@@ -5,7 +5,7 @@ import {ProtoViewRef} from 'angular2/src/core/compiler/view_ref';
 
 import * as dom from 'ionic/util/dom';
 import {IonicComponent} from 'ionic/config/component';
-import {NavItem} from 'ionic/ionic';
+import {NavItem} from 'ionic/components';
 import {Platform} from 'ionic/platform/platform';
 import {BackButton} from './back-button';
 

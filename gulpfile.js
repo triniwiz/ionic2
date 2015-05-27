@@ -57,18 +57,18 @@ gulp.task('watch', function() {
 });
 
 gulp.task('clean', function(done) {
-  del(['../angular-ionic/modules/ionic, ./angular-ionic/modules/examples/src/ionic'], done);
+  del(['./dist/*'], done);
 });
 
 
 gulp.task('ionic.copy.js', function(done) {
   return gulp.src(['ionic/**/*.js', '!ionic/components/*/test/**/*'])
-             .pipe(gulp.dest('../angular-ionic/modules/ionic'));
+             .pipe(gulp.dest('dist/js/'));
 });
 
 
 gulp.task('ionic.examples', function() {
-  var indexContents = _.template( fs.readFileSync('scripts/e2e/angular.template.html') )({
+  var indexContents = _.template( fs.readFileSync('scripts/e2e/ionic.template.html') )({
     buildConfig: buildConfig
   });
 
@@ -78,7 +78,7 @@ gulp.task('ionic.examples', function() {
       file.dirname = file.dirname.replace(path.sep + 'test' + path.sep, path.sep)
     }))
     .pipe(gulpif(/index.js$/, processMain()))
-    .pipe(gulp.dest('../angular-ionic/modules/examples/src/ionic'))
+    .pipe(gulp.dest('dist/examples/'))
 
     function processMain() {
       return through2.obj(function(file, enc, next) {
@@ -103,19 +103,19 @@ gulp.task('sass', function() {
       }
     }))
     .pipe(autoprefixer(buildConfig.autoprefixer))
-    .pipe(gulp.dest('../angular-ionic/dist/js/dev/es5/css'));
+    .pipe(gulp.dest('dist/css/'));
 });
 
 
 gulp.task('fonts', function() {
   return gulp.src('ionic/components/icon/fonts/**/*')
-    .pipe(gulp.dest('../angular-ionic/dist/js/dev/es5/fonts'));
+    .pipe(gulp.dest('dist/fonts/'));
 });
 
 
 gulp.task('polyfills', function() {
   return gulp.src('ionic/animations/web-animations*')
-    .pipe(gulp.dest('../angular-ionic/dist/js/dev/es5/polyfills'));
+    .pipe(gulp.dest('dist/polyfills/'));
 });
 
 

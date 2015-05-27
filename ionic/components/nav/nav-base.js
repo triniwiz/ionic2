@@ -1,5 +1,6 @@
 import * as util from 'ionic/util';
-import {Transition, ClickBlock} from 'ionic/ionic';
+import {Transition} from 'ionic/transitions/transition';
+import {ClickBlock} from 'ionic/util';
 import {NavItem} from './nav-item';
 import {NavController} from './nav-controller';
 

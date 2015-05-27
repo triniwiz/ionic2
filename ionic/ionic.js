@@ -1,9 +1,12 @@
+import 'babel-core/polyfill';
+import 'reflect-metadata';
+
 // HACKYFILLS (hack + polyfill)
-import {NgElement, ViewContainerRef} from 'angular2/angular2'
+/*import {NgElement, ViewContainerRef} from 'angular2/angular2'
 
 //import {DomRenderedElement} from 'ionic/util/render/dom';
 
-/*
+
 Object.defineProperties(NgElement.prototype, {
   renderElement: {
     get: function() {
@@ -17,7 +20,7 @@ Object.defineProperties(NgElement.prototype, {
     }
   }
 });
-*/
+
 
 
 Object.defineProperties(ViewContainerRef.prototype, {
@@ -28,8 +31,10 @@ Object.defineProperties(ViewContainerRef.prototype, {
   }
 });
 
+*/
 
 export * from 'ionic/components'
+/*
 export * from 'ionic/directives'
 export * from 'ionic/platform/platform'
 export * from 'ionic/routing/router'
@@ -38,10 +43,11 @@ export * from 'ionic/util/click-block'
 export * from 'ionic/util/focus'
 
 export * from 'ionic/engine/engine'
-export * from 'ionic/engine/cordova/cordova'
-export * from 'ionic/engine/electron/electron'
+//export * from 'ionic/engine/cordova/cordova'
+//export * from 'ionic/engine/electron/electron'
 
 export * from 'ionic/animations/animation'
 export * from 'ionic/transitions/transition'
 export * from 'ionic/transitions/none-transition'
 export * from 'ionic/transitions/ios-transition'
+*/
