@@ -17,6 +17,7 @@ var through2 = require('through2');
 var runSequence = require('run-sequence');
 var watch = require('gulp-watch');
 var exec = require('child_process').exec;
+var babel = require('gulp-babel');
 
 
 gulp.task('build', function() {
@@ -60,9 +61,46 @@ gulp.task('clean', function(done) {
   del(['./dist/*'], done);
 });
 
+var babelOptions = {
+  optional: ['es7.decorators'],
+  //plugins: [
+  //  'angular2-annotations'
+  //],
+  //blacklist: ['strict']
+};
+
+var systemjsConfig = {
+  paths: {
+    "ionic/*": "ionic/*.js",
+    //"angular2/*": "angular2/*.js",
+    "angular2/*": "angular2/*.es6",
+    "reflect-metadata": "node_modules/reflect-metadata/Reflect.js",
+    "rx": "node_modules/rx/dist/rx.js"
+  },
+  meta: {
+    // auto-detection fails to detect properly here - https://github.com/systemjs/builder/issues/123
+    'rx': {
+        format: 'cjs'
+    }
+  },
+  transpiler: 'babel',
+  babelOptions: babelOptions
+};
+
+// production build
+gulp.task('ionic.bundle.js', function() {
+
+  var Builder = require('systemjs-builder');
+  var builder = new Builder();
+  builder.config(systemjsConfig);
+  return builder.build('ionic/ionic', './dist/js/ionic.bundle.js');
+});
+
 
 gulp.task('ionic.copy.js', function(done) {
   return gulp.src(['ionic/**/*.js', '!ionic/components/*/test/**/*'])
+             .pipe(babel(babelOptions))
+             .pipe(concat('ionic.bundle.js'))
              .pipe(gulp.dest('dist/js/'));
 });
 
@@ -78,6 +116,7 @@ gulp.task('ionic.examples', function() {
       file.dirname = file.dirname.replace(path.sep + 'test' + path.sep, path.sep)
     }))
     .pipe(gulpif(/index.js$/, processMain()))
+    .pipe(gulpif(/index.js$/, babel(babelOptions)))
     .pipe(gulp.dest('dist/examples/'))
 
     function processMain() {

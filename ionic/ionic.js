@@ -1,6 +1,3 @@
-import 'babel-core/polyfill';
-import 'reflect-metadata';
-
 // HACKYFILLS (hack + polyfill)
 /*import {NgElement, ViewContainerRef} from 'angular2/angular2'
 
@@ -33,7 +30,7 @@ Object.defineProperties(ViewContainerRef.prototype, {
 
 */
 
-export * from 'ionic/components'
+export * from './components'
 /*
 export * from 'ionic/directives'
 export * from 'ionic/platform/platform'

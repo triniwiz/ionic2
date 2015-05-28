@@ -1,7 +1,8 @@
 // DON'T reference this file in the source. Only in demos.
 // export * from 'ionic/components/action-menu/action-menu'
 // export * from 'ionic/components/alert/alert'
-export * from 'ionic/components/aside/aside'
+export * from './components/aside/aside'
+/*
 export * from 'ionic/components/button/button'
 export * from 'ionic/components/checkbox/checkbox'
 export * from 'ionic/components/content/content'
@@ -25,3 +26,4 @@ export * from 'ionic/components/switch/switch'
 export * from 'ionic/components/tabs/tabs'
 export * from 'ionic/components/tabs/tab'
 export * from 'ionic/components/toolbar/toolbar'
+*/

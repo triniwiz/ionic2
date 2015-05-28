@@ -1,16 +1,18 @@
 import {EventEmitter, ElementRef, Inject, Parent} from 'angular2/angular2'
 
-import {Component, Directive} from 'angular2/src/core/annotations_impl/annotations';
-import {View} from 'angular2/src/core/annotations_impl/view';
+import {ComponentAnnotation as Component, DirectiveAnnotation as Directive} from 'angular2/angular2'
+import {ViewAnnotation as View} from 'angular2/angular2'
 
-import * as types from 'ionic/components/aside/extensions/types'
-import * as gestures from  'ionic/components/aside/extensions/gestures'
+import * as types from './extensions/types'
+import * as gestures from  './extensions/gestures'
+
 import {dom} from 'ionic/util'
 import {IonicComponent} from 'ionic/config/component'
 
 /**
  * TODO (?) add docs about how to have a root aside and a nested aside, then hide the root one
  */
+
 
 @Component({
   selector: 'ion-aside',
