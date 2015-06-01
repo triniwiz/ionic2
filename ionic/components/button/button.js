@@ -1,5 +1,5 @@
 import { ElementRef} from 'angular2/angular2'
-import {Component, Directive} from 'angular2/src/core/annotations_impl/annotations';
+import {Component, Directive} from 'angular2/angular2';
 
 import {IonicComponent} from 'ionic/config/component'
 

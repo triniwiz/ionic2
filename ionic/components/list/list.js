@@ -1,6 +1,6 @@
 import {Renderer, ElementRef} from 'angular2/angular2'
-import {Component, Directive} from 'angular2/src/core/annotations_impl/annotations';
-import {View} from 'angular2/src/core/annotations_impl/view';
+import {Component, Directive} from 'angular2/angular2';
+import {View} from 'angular2/angular2';
 
 import {IonicComponent} from 'ionic/config/component'
 

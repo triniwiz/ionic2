@@ -63,9 +63,9 @@ gulp.task('clean', function(done) {
 
 var babelOptions = {
   optional: ['es7.decorators'],
-  //plugins: [
-  //  'angular2-annotations'
-  //],
+  plugins: [
+    'angular2-annotations'
+  ],
   //blacklist: ['strict']
 };
 

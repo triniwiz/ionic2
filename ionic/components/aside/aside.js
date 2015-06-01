@@ -1,7 +1,11 @@
+import 'babel-core/polyfill';
 import {EventEmitter, ElementRef, Inject, Parent} from 'angular2/angular2'
 
-import {ComponentAnnotation as Component, DirectiveAnnotation as Directive} from 'angular2/angular2'
-import {ViewAnnotation as View} from 'angular2/angular2'
+//import {ComponentAnnotation as Component, DirectiveAnnotation as Directive} from 'angular2/angular2'
+import {Component, Directive} from 'angular2/angular2'
+
+//import {ViewAnnotation as View} from 'angular2/angular2'
+import {View} from 'angular2/angular2'
 
 import * as types from './extensions/types'
 import * as gestures from  './extensions/gestures'
@@ -27,9 +31,7 @@ import {IonicComponent} from 'ionic/config/component'
   template: `<content></content>`
 })
 export class Aside {
-  constructor(
-    elementRef: ElementRef
-  ) {
+  constructor( elementRef: ElementRef) {
     this.domElement = elementRef.domElement
 
     this.opening = new EventEmitter('opening');
@@ -120,3 +122,21 @@ new IonicComponent(Aside, {
     ]
   }
 })
+
+import {bootstrap} from 'angular2/angular2'
+
+import {List, Item, Content, Button} from 'ionic/components';
+
+@Component({
+  selector: 'ion-app'
+})
+@View({
+  directives: [Aside, Content, List, Item],
+  templateUrl: 'main.html'
+})
+class IonicApp {
+}
+
+//export function main() {
+  bootstrap(IonicApp);
+//}

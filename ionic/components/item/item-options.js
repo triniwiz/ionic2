@@ -1,4 +1,3 @@
-
 @Decorator({
   selector: 'ion-primary-options'
 })

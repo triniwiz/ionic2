@@ -1,9 +1,8 @@
 import {bootstrap} from 'angular2/angular2'
-import {Component, Directive} from 'angular2/src/core/annotations_impl/annotations';
-import {View} from 'angular2/src/core/annotations_impl/view';
+import {Component, Directive} from 'angular2/angular2'
+import {View} from 'angular2/angular2'
 
 import {Aside, List, Item, Content, Button} from 'ionic/ionic';
-
 
 @Component({
   selector: 'ion-app'
@@ -15,6 +14,6 @@ import {Aside, List, Item, Content, Button} from 'ionic/ionic';
 class IonicApp {
 }
 
-export function main() {
+//export function main() {
   bootstrap(IonicApp);
-}
+//}

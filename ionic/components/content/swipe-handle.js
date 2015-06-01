@@ -1,6 +1,6 @@
 import {ElementRef} from 'angular2/angular2'
-import {Ancestor} from 'angular2/src/core/annotations_impl/visibility';
-import {Directive} from 'angular2/src/core/annotations_impl/annotations';
+import {Ancestor} from 'angular2/angular2';
+import {Directive} from 'angular2/angular2';
 
 import {Gesture} from 'ionic/gestures/gesture';
 import {NavItem} from '../nav/nav-item';
