@@ -15,7 +15,7 @@ import {RadioButton} from '../radio/radio';
     '[checked]': 'checked',
     '[value]': 'value',
     '[attr.name]': 'name',
-    '(change)': 'onChangeEvent($event)'
+    '(change)': 'toggle()'
   }
 })
 export class TapInput extends IonInput {
@@ -44,8 +44,8 @@ export class TapInput extends IonInput {
 
   //to detect switching/selecting inputs with the keyboard
   //view -> model (Control)
-  onChangeEvent(ev) {
-    this.container && this.container.onChangeEvent(this);
+  toggle() {
+    this.container && this.container.toggle(this);
   }
 
 }

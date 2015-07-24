@@ -2,6 +2,7 @@ import {
   View,
   Directive,
   ElementRef,
+  Renderer,
   Optional,
   Parent,
   NgControl
@@ -18,8 +19,7 @@ import {Icon} from '../icon/icon';
   selector: 'ion-checkbox',
   host: {
     '[class.item]': 'item',
-    '[attr.aria-checked]': 'input.checked',
-    // '(^click)': 'onClick($event)'
+    '[attr.aria-checked]': 'input.checked'
   },
   defaultProperties: {
     'iconOff': 'ion-ios-circle-outline',
@@ -29,7 +29,8 @@ import {Icon} from '../icon/icon';
 @IonicView({
   template:
   '<div class="item-media media-checkbox">' +
-    '<div class="media-checkbox-outline"></div>' +
+  '<icon [name]="iconOff" class="checkbox-off"></icon>' +
+    '<icon [name]="iconOn" class="checkbox-on"></icon>' +
   '</div>' +
   '<div class="item-content">' +
     '<content></content>' +
@@ -37,50 +38,60 @@ import {Icon} from '../icon/icon';
 })
 export class Checkbox extends IonInputItem {
   constructor(
+    cd: NgControl,
+    renderer: Renderer,
     elementRef: ElementRef,
     config: IonicConfig
   ) {
     super(elementRef, config);
+    this.onChange = (_) => {};
+    this.onTouched = (_) => {};
+    this.renderer = renderer;
+    this.elementRef = elementRef;
+    this.cd = cd;
+
+    cd.valueAccessor = this;
+
     this.item = true;
   }
 
-  // onClick(ev) {
-  //   debugger
-  //   // toggling with spacebar fires mouse event
-  //   if (ev.target.tagName === "INPUT") return;
-  //
-  //   this.input.checked = !this.input.checked;
-  //
-  //   //TODO trigger change/mouse event on the actual input to trigger
-  //   // form updates
-  //
-  //   // this._checkbox.dispatchEvent(e);
-  //   //this._checkboxDir.control.valueAccessor.writeValue(val);
-  // }
-
-  onChangeEvent(input) {
-    //TODO can we just assume this will always be true?
-    this.input.checked = this.input.elementRef.nativeElement.checked;
+  onInit() {
+    super.onInit();
   }
 
-  focus() {
-    let mouseClick = new MouseEvent("click", {
-      bubbles: true,
-      cancelable: true,
-    });
-    this.input && this.input.elementRef.nativeElement.dispatchEvent(mouseClick);
+  onAllChangesDone() {
+    if (this.input && this.input.value === void 0) {
+      this.input.value = "on";
+    }
   }
+
+  //from clicking the label or selecting with keyboard
+  //view -> model (Control)
+  toggle() {
+    this.input.checked = !this.input.checked;
+    this.onChange({"checked": this.input.checked, "value": this.input.value});
+  }
+
+  // Called by the model (Control) to update the view
+  writeValue(modelValue) {
+    let type = typeof modelValue;
+    switch (type) {
+      case "boolean":
+        this.input.checked = modelValue; break;
+      case "object":
+        if (modelValue.checked !== void 0) this.input.checked = !!modelValue.checked;
+        if (modelValue.value !== void 0) this.input.value = modelValue.value.toString();
+        break;
+      default:
+        this.input.value = modelValue.toString();
+    }
+    debugger;
+    this.cd.control._value = {"checked": this.input.checked, "value": this.input.value};
+  }
+
+  // Used by the view to update the model (Control)
+  // Up to us to call it in update()
+  registerOnChange(fn) { this.onChange = fn; }
+
+  registerOnTouched(fn) { this.onTouched = fn; }
 }
-
-
-// export class CheckboxInput {
-//   constructor(
-//     elementRef: ElementRef,
-//     @Optional() @Parent() container: Checkbox,
-//     @Optional() control: NgControl
-//   ) {
-//     this.elementRef = elementRef;
-//     this.control = control ? control : null;
-//     container && container.registerCheckbox(this);
-//   }
-// }
