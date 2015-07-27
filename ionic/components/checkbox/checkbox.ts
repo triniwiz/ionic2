@@ -84,6 +84,9 @@ export class Checkbox extends IonInputItem {
     }
     //TODO check validity
     this.cd.control._value = {"checked": !!this.input.checked, "value": this.input.value};
+
+    //TODO only want to call this once, we want to set input.checked directly on subsequent
+    // writeValue's
     this.onAllChangesDone = () => {};
     // this.onChange({"checked": this.input.checked, "value": this.input.value});
   }
@@ -97,6 +100,7 @@ export class Checkbox extends IonInputItem {
 
   // Called by the model (Control) to update the view
   writeValue(modelValue) {
+    debugger;
     let type = typeof modelValue;
     switch (type) {
       case "boolean":
@@ -112,8 +116,11 @@ export class Checkbox extends IonInputItem {
         // because they might have set it in the view
         this._value = modelValue.toString();
     }
+
+    //TODO we want to set input.checked directly after the first time
     console.log("writeValue, " + this.input.id + " checked: " + this._checked);
     console.log("writeValue " + this.input.id + " value: " + this._value);
+
     // this.cd.control._value = {"checked": this.input.checked, "value": this.input.value};
   }
 
