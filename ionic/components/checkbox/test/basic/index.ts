@@ -20,8 +20,8 @@ class IonicApp {
     this.fruitsForm = new ControlGroup({
       "appleCtrl": new Control({"checked": false, "value": "apple"}),
       "bananaCtrl": new Control(true),
-      "grapeCtrl": new Control("grape"),
-      "cherryCtrl": new Control({"checked": false, "value": 12})
+      "cherryCtrl": new Control({"checked": false, "value": 12}),
+      "grapeCtrl": new Control("grape")
     });
   }
 

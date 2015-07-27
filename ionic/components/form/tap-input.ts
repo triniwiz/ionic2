@@ -42,6 +42,11 @@ export class TapInput extends IonInput {
     this.tabIndex = this.tabIndex || '';
   }
 
+  onInit() {
+    console.log("tapinput oninit, " + this.id + " checked: " + this.checked);
+    console.log("tapinput oninit, " + this.id + " value: " + this.value);
+  }
+
   //to detect switching/selecting inputs with the keyboard
   //view -> model (Control)
   toggle() {
