@@ -50,18 +50,9 @@ var tscReporter = {
     }
 };
 
-gulp.task('clean.build', function(done) {
-  runSequence(
-    'clean',
-    'build',
-    done
-  );
-})
-
 gulp.task('build', function(done) {
   runSequence(
-    'transpile',
-    'bundle.js',
+    'bundle',
     'e2e',
     'sass',
     'fonts',
@@ -69,25 +60,22 @@ gulp.task('build', function(done) {
   );
 })
 
-gulp.task('watch', function(done) {
+gulp.task('clean.build', function(done) {
+  runSequence('clean', 'build', done);
+})
 
+gulp.task('watch', function(done) {
   runSequence(
-    'build',
     'serve',
     function() {
-      watch(
-        [
+      watch([
           'ionic/**/*.js',
           'ionic/**/*.ts',
           '!ionic/components/*/test/**/*',
           '!ionic/util/test/*'
         ],
         function() {
-          runSequence(
-            'transpile',
-            'bundle.js',
-            'e2e'
-          )
+          runSequence('transpile', 'bundle.js', 'e2e');
         }
       );
 
@@ -103,6 +91,10 @@ gulp.task('watch', function(done) {
     }
   );
 });
+
+gulp.task('build.watch', function(done){
+  runSequence('build', 'watch');
+})
 
 gulp.task('serve', function() {
   connect.server({
@@ -144,20 +136,54 @@ gulp.task('transpile.system', function() { return transpile("system"); });
 gulp.task('transpile.common', function() { return transpile("common"); });
 gulp.task('transpile', ['transpile.system']);
 
-gulp.task('bundle.js', function() {
-  return gulp.src(['dist/js/es5/system/ionic/**/*.js', 'ionic/util/hairline.js'])
-             .pipe(concat('ionic.bundle.js'))
-             .pipe(gulp.dest('dist/js/'));
+gulp.task('bundle.ionic', ['transpile'], function() {
+  return gulp.src([
+      'dist/js/es5/system/ionic/**/*.js',
+      'ionic/util/hairline.js'
+    ])
+    .pipe(concat('ionic.js'))
+    .pipe(gulp.dest('dist/js/'));
+    //TODO minify + sourcemaps
 });
+
+gulp.task('bundle.dev', ['bundle.ionic'], function() {
+  var nm = "node_modules"
+  return gulp.src([
+      nm + 'traceur/bin/traceur-runtime.js', //TODO minified version?
+      nm + '/systemjs/' + nm + '/es6-module-loader/dist/es6-module-loader.js.',
+      nm + '/systemjs/dist/system.js',
+      'scripts/resources/e2e.config.js',
+      nm + '/angular2-build/angular2.dev.js',
+      'dist/js/ionic.js',
+      nm + 'web-animations-js/web-animations.min.js'
+    ])
+    .pipe(concat('ionic.bundle.dev.js'))
+    .pipe(gulp.dest('dist/js'));;
+})
+
+gulp.task('bundle.min', ['bundle.ionic'], function() {
+  var nm = "node_modules"
+  return gulp.src([
+      nm + '/traceur-runtime/index.js',
+      nm + '/systemjs/' + nm + '/es6-module-loader/dist/es6-module-loader.js.',
+      nm + '/systemjs/dist/system.js',
+      nm + '/angular2-build/angular2.min.js',
+      'dist/js/ionic.js', //TODO minify
+      nm + 'web-animations-js/web-animations.min.js'
+    ])
+    .pipe(concat('ionic.bundle.min.js'))
+    .pipe(gulp.dest('dist/js'));
+})
+
 
 gulp.task('tests', function() {
   return gulp.src('ionic/components/*/test/*/**/*.spec.ts')
-             .pipe(tsc(tscOptions, null, tscReporter))
-             .pipe(babel(getBabelOptions('tests')))
-             .pipe(rename(function(file) {
-               file.dirname = file.dirname.replace(path.sep + 'test' + path.sep, path.sep)
-             }))
-             .pipe(gulp.dest('dist/tests'))
+    .pipe(tsc(tscOptions, null, tscReporter))
+    .pipe(babel(getBabelOptions('tests')))
+    .pipe(rename(function(file) {
+      file.dirname = file.dirname.replace(path.sep + 'test' + path.sep, path.sep)
+    }))
+    .pipe(gulp.dest('dist/tests'))
 })
 
 gulp.task('copy-scripts', function(){
