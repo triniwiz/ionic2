@@ -16,7 +16,7 @@ import {
   TextInput, TextInputElement, Label,
   Segment, SegmentButton, SegmentControlValueAccessor,
   RadioGroup, RadioButton, SearchBar,
-  Nav, NavbarTemplate, Navbar, NavPush, NavPop,
+  Nav, NavbarTemplate, Navbar, NavPush, NavPop, NavRouter,
   TapClick, TapDisabled,
   Register,
   ShowWhen, HideWhen,
@@ -78,6 +78,7 @@ export const IonicDirectives = [
   forwardRef(() => Navbar),
   forwardRef(() => NavPush),
   forwardRef(() => NavPop),
+  forwardRef(() => NavRouter),
   forwardRef(() => Register),
 
   forwardRef(() => ShowWhen),

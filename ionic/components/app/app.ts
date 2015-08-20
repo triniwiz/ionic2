@@ -1,4 +1,5 @@
 import {Component, View, bootstrap, ElementRef, NgZone, bind, DynamicComponentLoader, Injector} from 'angular2/angular2';
+import {routerInjectables, HashLocationStrategy, LocationStrategy} from 'angular2/router';
 
 import {IonicRouter} from '../../routing/router';
 import {IonicConfig} from '../../config/config';
@@ -218,7 +219,9 @@ export function ionicBootstrap(rootComponentType, config, router) {
         bind(IonicRouter).toValue(router),
         bind(ActionMenu).toValue(actionMenu),
         bind(Modal).toValue(modal),
-        bind(Popup).toValue(popup)
+        bind(Popup).toValue(popup),
+        routerInjectables,
+        bind(LocationStrategy).toClass(HashLocationStrategy)
       ]);
 
       bootstrap(rootComponentType, appBindings).then(appRef => {
@@ -240,10 +243,12 @@ export function ionicBootstrap(rootComponentType, config, router) {
           console.error(err)
         });
 
-        router.load(window, app, config).then(() => {
-          // resolve that the app has loaded
-          resolve(app);
-        });
+        // router.load(window, app, config).then(() => {
+        //   // resolve that the app has loaded
+        //   resolve(app);
+        // });
+
+        resolve(app);
 
       }).catch(err => {
         console.error('ionicBootstrap', err);

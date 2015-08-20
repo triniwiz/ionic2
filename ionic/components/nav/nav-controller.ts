@@ -40,4 +40,7 @@ export class NavParams {
   constructor(params) {
     extend(this, params);
   }
+  get(param) {
+    return this[param];
+  }
 }

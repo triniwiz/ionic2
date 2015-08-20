@@ -54,8 +54,8 @@ export class ViewController extends Ion {
     ]);
   }
 
-  push(component, params = {}, opts = {}) {
-    if (!component || this.isTransitioning()) {
+  push(componentType, params = {}, opts = {}) {
+    if (!componentType || this.isTransitioning()) {
       return Promise.reject();
     }
 
@@ -79,7 +79,7 @@ export class ViewController extends Ion {
     }
 
     // create a new ViewItem
-    let enteringItem = new ViewItem(this, component, params);
+    let enteringItem = new ViewItem(this, componentType, params);
 
     // add the item to the stack
     this.add(enteringItem);
@@ -193,9 +193,9 @@ export class ViewController extends Ion {
     return this.push((component && component.component) || component, (component && component.params), opts);
   }
 
-  setRoot(component, params = {}, opts = {}) {
+  setRoot(componentType, params = {}, opts = {}) {
     return this.setItems([{
-             component,
+             componentType,
              params
            }], opts);
   }
