@@ -4,7 +4,6 @@ import {
   Router,
   Instruction,
   ComponentInstruction,
-  RouteParams,
   ROUTE_DATA} from 'angular2/router';
 
 import {Nav} from './nav';
@@ -26,27 +25,7 @@ export class NavRouter extends RouterOutlet {
     var componentType = instruction.componentType;
     this.childRouter = this._parentRouter.childRouter(componentType);
 
-    // convert RouteParams to plain object
-    // which will later turn into Ionic's NavParams
-    var params = new RouteParams(instruction.params).params;
-
-    this.nav.push(componentType, params);
-
-    // var bindings = Injector.resolve([
-    //   bind(ROUTE_DATA)
-    //       .toValue(instruction.routeData()),
-    //   bind(RouteParams).toValue(new RouteParams(instruction.params)),
-    //   bind(Router).toValue(this.childRouter)
-    // ]);
-
-    // return this._loader.loadNextToLocation(componentType, this._elementRef, bindings)
-    //     .then((componentRef) => {
-    //       this._componentRef = componentRef;
-    //       // if (hasLifecycleHook(hookMod.onActivate, componentType)) {
-    //       //   return this._componentRef.instance.onActivate(instruction, previousInstruction);
-    //       // }
-    //     });
-
+    this.nav.push(componentType, instruction.params);
   }
 
 }

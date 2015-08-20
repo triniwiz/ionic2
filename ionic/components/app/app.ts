@@ -176,7 +176,7 @@ class RootAnchor {
   }
 }
 
-export function ionicBootstrap(rootComponentType, config, router) {
+export function ionicBootstrap(rootComponentType, config) {
   return new Promise(resolve => {
     try {
       // get the user config, or create one if wasn't passed in
@@ -199,13 +199,7 @@ export function ionicBootstrap(rootComponentType, config, router) {
       Platform.prepareReady(config);
 
       // setup router
-      if (typeof router !== IonicRouter) {
-        router = new IonicRouter(router);
-      }
-      router.app(app);
-
-      // TODO: don't wire these together
-      app.router = router;
+      let router = new IonicRouter(app);
 
       // TODO: probs need a better way to inject global injectables
       let actionMenu = new ActionMenu(app, config);
