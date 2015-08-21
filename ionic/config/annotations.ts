@@ -2,7 +2,6 @@ import {CORE_DIRECTIVES, FORM_DIRECTIVES, Component, Directive, View, forwardRef
 
 import * as util from 'ionic/util';
 import {IonicConfig} from './config';
-import {IonicRouter} from '../routing/router';
 import {ionicBootstrap} from '../components/app/app';
 import {
   Aside, Button, Content, Scroll, Refresher,
@@ -173,7 +172,7 @@ export function App(args={}) {
     // redefine with added annotations
     Reflect.defineMetadata('annotations', annotations, cls);
 
-    ionicBootstrap(cls, args.config, args.routes);
+    ionicBootstrap(cls, args.config);
 
     return cls;
   }
