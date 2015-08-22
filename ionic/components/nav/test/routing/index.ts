@@ -1,9 +1,4 @@
-import {NgIf, NgFor, EventEmitter, Component, View, Inject, Injectable} from 'angular2/angular2';
-import {
-  RouteConfig,
-  Route,
-  Location
-} from 'angular2/router';
+import {RouteConfig, Location} from 'angular2/router';
 
 import {App, IonicView, NavParams, ViewItem} from 'ionic/ionic';
 
