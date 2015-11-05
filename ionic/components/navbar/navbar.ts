@@ -60,8 +60,8 @@ class BackButtonText extends Ion {
         '</span>' +
       '</button>' +
       '<ng-content select="[menu-toggle]"></ng-content>' +
-      '<ng-content select="ion-title"></ng-content>' +
       '<ng-content select="ion-nav-items[primary]"></ng-content>' +
+      '<ng-content select="ion-title"></ng-content>' +
       '<ng-content select="ion-nav-items[secondary]"></ng-content>' +
     '</div>' +
     '<div class="toolbar-background"></div>',
